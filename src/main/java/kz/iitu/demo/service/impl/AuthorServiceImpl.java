@@ -2,6 +2,8 @@ package kz.iitu.demo.service.impl;
 
 import javassist.NotFoundException;
 import kz.iitu.demo.entity.Author;
+import kz.iitu.demo.events.AuthorChangeEvent;
+import kz.iitu.demo.events.BookChangeEvent;
 import kz.iitu.demo.repository.AuthorRepository;
 import kz.iitu.demo.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,7 @@ public class AuthorServiceImpl implements AuthorService, ApplicationEventPublish
     @Override
     public void createAuthor(Author author) {
         authorRepository.save(author);
+        this.eventPublisher.publishEvent(new AuthorChangeEvent(this, author, "added"));
     }
 
     @Override
@@ -55,6 +58,7 @@ public class AuthorServiceImpl implements AuthorService, ApplicationEventPublish
             dbAuthor.setAbout(author.getAbout());
 
             authorRepository.save(dbAuthor);
+            this.eventPublisher.publishEvent(new AuthorChangeEvent(this, author, "updated"));
         }
     }
 
@@ -63,6 +67,7 @@ public class AuthorServiceImpl implements AuthorService, ApplicationEventPublish
         Optional<Author> authorOptional = authorRepository.findById(id);
         if (authorOptional.isPresent()) {
             authorRepository.deleteById(id);
+            this.eventPublisher.publishEvent(new AuthorChangeEvent(this, authorOptional.get(), "deleted"));
         }
     }
 

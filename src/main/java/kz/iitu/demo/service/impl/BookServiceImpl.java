@@ -3,6 +3,7 @@ package kz.iitu.demo.service.impl;
 import kz.iitu.demo.entity.Author;
 import kz.iitu.demo.entity.Book;
 import kz.iitu.demo.entity.Publisher;
+import kz.iitu.demo.events.BookChangeEvent;
 import kz.iitu.demo.repository.BookRepository;
 import kz.iitu.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class BookServiceImpl implements BookService, ApplicationEventPublisherAw
     @Override
     public void createBook(Book book) {
         bookRepository.save(book);
+        this.eventPublisher.publishEvent(new BookChangeEvent(this, book, "added"));
     }
 
     @Override
@@ -60,6 +62,8 @@ public class BookServiceImpl implements BookService, ApplicationEventPublisherAw
             dbBook.setAuthor_id(book.getAuthor_id());
             dbBook.setPublisher_id(book.getPublisher_id());
             bookRepository.save(dbBook);
+
+            this.eventPublisher.publishEvent(new BookChangeEvent(this, book, "updated"));
         }
     }
 
@@ -68,6 +72,7 @@ public class BookServiceImpl implements BookService, ApplicationEventPublisherAw
         Optional<Book> bookOptional = bookRepository.findById(id);
 
         if (bookOptional.isPresent()) {
+            this.eventPublisher.publishEvent(new BookChangeEvent(this, bookOptional.get(), "deleted"));
             bookRepository.deleteById(id);
         }
     }

@@ -3,6 +3,8 @@ package kz.iitu.demo.service.impl;
 import kz.iitu.demo.entity.Author;
 import kz.iitu.demo.entity.Book;
 import kz.iitu.demo.entity.Publisher;
+import kz.iitu.demo.events.AuthorChangeEvent;
+import kz.iitu.demo.events.PublisherChangeEvent;
 import kz.iitu.demo.repository.PublisherRepository;
 import kz.iitu.demo.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,7 @@ public class PublisherServiceImpl implements PublisherService, ApplicationEventP
     @Override
     public void createPublisher(Publisher publisher) {
         publisherRepository.save(publisher);
+        this.eventPublisher.publishEvent(new PublisherChangeEvent(this, publisher, "added"));
     }
 
     @Override
@@ -54,6 +57,8 @@ public class PublisherServiceImpl implements PublisherService, ApplicationEventP
             dbPublisher.setName(publisher.getName());
             dbPublisher.setDescription(publisher.getDescription());
             publisherRepository.save(dbPublisher);
+
+            this.eventPublisher.publishEvent(new PublisherChangeEvent(this, publisher, "updated"));
         }
     }
 
@@ -62,6 +67,7 @@ public class PublisherServiceImpl implements PublisherService, ApplicationEventP
         Optional<Publisher> publisherOptional = publisherRepository.findById(id);
         if (publisherOptional.isPresent()) {
             publisherRepository.deleteById(id);
+            this.eventPublisher.publishEvent(new PublisherChangeEvent(this, publisherOptional.get(), "deleted"));
         }
     }
 
