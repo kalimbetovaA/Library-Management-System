@@ -5,28 +5,28 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
-@ToString(exclude = {"books"})
 @NoArgsConstructor
-@Table(name = "publishers")
-public class Publisher{
+@Entity
+@Table(name = "categories")
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty(notes = "The database generated Publisher ID")
+    @ApiModelProperty(notes = "The database generated Category ID")
     private Long id;
-    @ApiModelProperty(notes = "The Publisher Name")
+
+    @ApiModelProperty(notes = "The Category Name")
+    @Column(unique = true)
     private String name;
-    @ApiModelProperty(notes = "The Publisher Description")
-    private String description;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
     private List<Book> books;
+
 }

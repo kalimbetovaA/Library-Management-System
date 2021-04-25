@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,20 +14,23 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString(exclude = {"books"})
+@ToString
 @NoArgsConstructor
-@Table(name = "publishers")
-public class Publisher{
+public class Role implements GrantedAuthority{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty(notes = "The database generated Publisher ID")
+    @ApiModelProperty(notes = "The database generated Role ID")
     private Long id;
-    @ApiModelProperty(notes = "The Publisher Name")
+    @ApiModelProperty(notes = "The Role Name")
     private String name;
-    @ApiModelProperty(notes = "The Publisher Description")
-    private String description;
+
+    @Override
+    public String getAuthority() {
+        return name;
+    }
 
     @JsonIgnore
-    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
-    private List<Book> books;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private List<User> users;
 }

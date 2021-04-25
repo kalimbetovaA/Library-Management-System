@@ -1,8 +1,20 @@
 package kz.iitu.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@ToString(exclude = {"users"})
+@NoArgsConstructor
 @Table(name = "books")
 public class Book{
     @Id
@@ -11,60 +23,27 @@ public class Book{
     private String name;
     private String genre;
     private String description;
-    private Long author_id;
-    private Long publisher_id;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(name = "books_authors",
+            joinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "author_id", referencedColumnName = "id")}
+    )
+    @ApiModelProperty(notes = "Authors of Book")
+    private List<Author> authors;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "publisher_id")
+    @ApiModelProperty(notes = "Publisher of Book")
+    private Publisher publisher;
 
-    public String getName() {
-        return name;
-    }
+    @JsonIgnore
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    private List<User> users;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(name = "books_categories", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "category_id") })
+    private List<Category> categories;
 
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getAuthor_id() {
-        return author_id;
-    }
-
-    public void setAuthor_id(Long author_id) {
-        this.author_id = author_id;
-    }
-
-    public Long getPublisher_id() {
-        return publisher_id;
-    }
-
-    public void setPublisher_id(Long publisher_id) {
-        this.publisher_id = publisher_id;
-    }
-
-    @Override
-    public String toString() {
-        return id+") name: " + name + "\n"+
-                "description: " + description + "\n";
-    }
 }

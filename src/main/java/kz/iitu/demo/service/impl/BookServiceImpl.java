@@ -59,8 +59,8 @@ public class BookServiceImpl implements BookService, ApplicationEventPublisherAw
             dbBook.setName(book.getName());
             dbBook.setDescription(book.getDescription());
             dbBook.setGenre(book.getGenre());
-            dbBook.setAuthor_id(book.getAuthor_id());
-            dbBook.setPublisher_id(book.getPublisher_id());
+            dbBook.setAuthors(book.getAuthors());
+            dbBook.setPublisher(book.getPublisher());
             bookRepository.save(dbBook);
 
             this.eventPublisher.publishEvent(new BookChangeEvent(this, book, "updated"));
