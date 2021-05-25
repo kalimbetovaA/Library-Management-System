@@ -1,0 +1,15 @@
+<div class="main">
+  <div class="container" >
+      <div>
+        <div class="img"><p>{{book.name}}</p></div>
+        <div class="info">
+          <p><b>Title:</b> {{book.name}}</p>
+          <p><b>Genre:</b> {{book.genre}}</p>
+          <p><b>Description:</b> {{book.description}}</p>
+          <form (ngSubmit)="onSubmit(book.id)">
+            <input class="borrow" type="submit" name="button" value="Borrow">
+          </form>
+        </div>
+      </div>
+  </div>
+</div>

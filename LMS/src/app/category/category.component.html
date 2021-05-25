@@ -1,0 +1,16 @@
+<div class="main">
+  <div class="container" >
+    <div *ngFor="let book of books!">
+      <div>
+        <div class="img"><p>{{book.name}}</p></div>
+        <div class="info">
+          <p><b>Title:</b> {{book.name}}</p>
+          <p><b>Genre:</b> {{book.genre}}</p>
+          <a [routerLink]="['/book-details', book.id]">
+            <button class="more">More</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

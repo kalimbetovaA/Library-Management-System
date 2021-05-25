@@ -1,0 +1,19 @@
+<main>
+  <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+    <h1>Login</h1>
+    <p class="info">Hi</p>
+    <div class="in-field">
+      <label>Username *</label>
+      <div><input name="username"  placeholder="Username" [(ngModel)]="user.username" required #username="ngModel">
+      </div>
+    </div>
+    <div class="in-field">
+      <label>Password *</label>
+      <div>
+        <input requiredmessage="Password" placeholder="Password" type="password"
+               name="password" [(ngModel)]="user.password" required #password="ngModel">
+      </div>
+    </div>
+    <button class="submit">Login</button>
+  </form>
+</main>

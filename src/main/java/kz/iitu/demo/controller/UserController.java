@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@CrossOrigin()
 @RestController
 @RequestMapping("/users")
 @Api(value = "User Controller", description = "User Controller helps to interact with User object")
@@ -104,7 +104,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     }
     )
-    @PostMapping("/me/borrow")
+    @GetMapping("/me/myborrow")
     public void borrowBook(@RequestParam Long bookId) {
         Book book = bookService.findBookById(bookId);
         String username= SecurityContextHolder.getContext().getAuthentication().getName();
@@ -113,10 +113,26 @@ public class UserController {
         userService.updateUser(user);
     }
 
-    @GetMapping("/me/borrow")
+    @GetMapping("/me")
+    public User findUserById() {
+        String username= SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = (User) userService.loadUserByUsername(username);
+        return user;
+    }
+
+    @GetMapping("/me/books")
     public List<Book> findUserBooks() {
         String username= SecurityContextHolder.getContext().getAuthentication().getName();
         User user = (User) userService.loadUserByUsername(username);
         return user.getBooks();
+    }
+
+    @GetMapping("/me/return")
+    public void returnBook(@RequestParam Long bookId) {
+        Book book = bookService.findBookById(bookId);
+        String username= SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = (User) userService.loadUserByUsername(username);
+        user.getBooks().remove(book);
+        userService.updateUser(user);
     }
 }

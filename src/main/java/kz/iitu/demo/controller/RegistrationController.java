@@ -7,12 +7,9 @@ import io.swagger.annotations.ApiResponses;
 import kz.iitu.demo.entity.User;
 import kz.iitu.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin()
 @RestController
 @RequestMapping("/register")
 @Api(value = "Registration Controller", description = "Registration Controller helps to create(register) a new user in the system")

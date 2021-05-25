@@ -1,0 +1,66 @@
+.main{
+  display: block;
+}
+.container{
+  display: block;
+  margin: 0 auto;
+  max-width: 1140px;
+}
+.container .img {
+  width: 25%;
+  margin: 50px auto;
+  border-radius: 10px;
+  background: #d1f9c0d9;
+  height: 150px;
+  text-align: center;
+  border: 1px grey solid;
+}
+.container .info {
+  margin: 50px auto;
+  border-radius: 10px;
+  width: 85%;
+  padding: 10px;
+  border: 1px #f3de2c solid;
+}
+.container div{
+  width: 100%;
+}
+.container .img p{
+  margin-top: 60px;
+}
+.borrow{
+  display: block;
+  width: 100px;
+  outline: 0;
+  height: 35px;
+  border: none;
+  color: #fff;
+  background-color: #f48403;
+  border-radius: 2px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+.more{
+  display: block;
+  width: 100px;
+  outline: 0;
+  height: 35px;
+  border: none;
+  color: #fff;
+  background-color: #70d36e;
+  border-radius: 2px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-top: 0;
+  float: left;
+  margin-right: 20px;
+}
+.book{
+  padding: 20px;
+  margin-top: 40px;
+  border: 1px #d6d844 solid;
+  border-radius: 10px;
+}

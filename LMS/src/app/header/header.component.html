@@ -1,0 +1,40 @@
+<header>
+    <div class="navigation">
+        <div class="container">
+            <div id="logo">
+                <a href="#">
+                    <p>MyBooks</p>
+                </a>
+            </div>
+            <div>
+                <nav>
+                    <ul>
+                      <li>
+                        <a [routerLink]="['books']">Books</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['authors']">Authors</a>
+                      </li>
+                        <li class="sign-up">
+                            <a [routerLink]="['sign-up']">Register</a>
+                        </li>
+                        <li class="sign-in">
+                            <a [routerLink]="['sign-in']">Log IN</a>
+                        </li>
+                      <li>
+                        <a [routerLink]="['profile']">Profile</a>
+                      </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="categories">
+        <div class="container">
+        <ul>
+            <li *ngFor="let category of categories!" class="ct-li"><a [routerLink]="['/category', category.id]">{{category.name}}</a></li>
+        </ul>
+    </div>
+    </div>
+
+</header>

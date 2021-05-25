@@ -1,0 +1,50 @@
+.main{
+  display: block;
+}
+.container{
+  display: block;
+  margin: 0 auto;
+  max-width: 800px;
+}
+h2{
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.title{
+  margin-bottom: 30px;
+  width: 30%;
+  display: inline-flex;
+}
+button{
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #70d36e;
+  color: white;
+  display: block;
+}
+button a{
+  color: white;
+  text-decoration: none;
+}
+.log-out{
+  display: block;
+  width: 100px;
+  outline: 0;
+  height: 35px;
+  border: none;
+  color: #fff;
+  background-color: #ff763b;
+  border-radius: 2px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-top: 0;
+  float: right;
+}
+form{
+  width: 40%;
+  margin: 30px;
+  float: right;
+}

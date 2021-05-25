@@ -1,0 +1,29 @@
+<main>
+  <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+    <h1>Registration</h1>
+    <div class="in-field">
+      <label>Username *</label>
+      <div>
+        <input type="text" requiredmessage="Username" placeholder="Username"
+               name="firstname" [(ngModel)]="user.username" required #username="ngModel">
+      </div>
+
+    </div>
+    <div ngModelGroup="passwords" #passwords="ngModelGroup" appMatchPassword>
+      <div class="in-field">
+        <label>Password *</label>
+        <div>
+          <input requiredmessage="Password" placeholder="Password" type="password"
+                 name="password" [(ngModel)]="user.password" required #password="ngModel">
+        </div>
+      </div>
+      <div class="in-field">
+        <label>Confirm password*</label>
+        <div>
+          <input requiredmessage="Confirm password" placeholder="Confirm password" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required #confirmPass="ngModel">
+        </div>
+    </div>
+    </div>
+      <button class="submit" value="Register" type="submit">Register</button>
+  </form>
+</main>

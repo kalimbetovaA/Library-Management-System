@@ -63,6 +63,9 @@ public class JwtTokenGeneratorFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, "qwertyuiopasdfghjklzxcvbnm".getBytes())
                 .compact();
 
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
+        response.addHeader("Access-Control-Allow-Headers", "Authorization, X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
         response.addHeader("Authorization", "Bearer " + token);
+
     }
 }

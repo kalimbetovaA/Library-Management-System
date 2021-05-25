@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import kz.iitu.demo.entity.Book;
 import kz.iitu.demo.entity.Category;
 import kz.iitu.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,12 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
+    }
+
+    @GetMapping("/{id}/books")
+    public List<Book> getCategoryBooks(@PathVariable Long id) {
+        Category category = categoryService.findCategoryById(id);
+        return category.getBooks();
     }
 
 

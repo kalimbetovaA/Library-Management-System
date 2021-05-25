@@ -1,0 +1,12 @@
+<div *ngFor="let book of userBooks!" class="book">
+  <div class="info">
+    <p><b>Title:</b> {{book.name}}</p>
+    <a [routerLink]="['/book-details', book.id]">
+      <button class="more">More</button>
+    </a>
+    <form (ngSubmit)="onReturnSubmit(book.id)">
+      <input class="borrow" type="submit" name="button" value="Return">
+    </form>
+  </div>
+</div>
+
